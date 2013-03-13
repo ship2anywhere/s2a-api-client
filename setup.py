@@ -13,6 +13,8 @@ def find_pyfiles(localdir=''):
 
 # find project packages
 packages = find_packages(exclude=["test*"])
+# find scripts
+scripts = find_pyfiles('scripts')
 
 setup(
     name = 's2a_api',
@@ -20,6 +22,7 @@ setup(
     description = 'Ship2Anywhere API client library',
     package_dir = {'s2a_api': 's2a_api'},
     packages = packages,
+    scripts = scripts,
     install_requires = [
         #'beautifulsoup4==4.1.3',
         #'tornado==2.4',
