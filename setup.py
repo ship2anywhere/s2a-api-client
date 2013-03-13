@@ -24,6 +24,7 @@ setup(
     packages = packages,
     scripts = scripts,
     install_requires = [
+        'argparse',
         #'beautifulsoup4==4.1.3',
         #'tornado==2.4',
     ],
