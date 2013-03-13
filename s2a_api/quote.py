@@ -1,10 +1,12 @@
+import logging
 
+LOG = logging.getLogger(__name__)
 
 class QuoteService(object):
   
     def __init__(self, api_url):
         self.api_url = api_url
 
-    def quote(self):
+    def get_quote(self):
         """ Get quote """
-        pass
+        LOG.info("Calling quote service")
