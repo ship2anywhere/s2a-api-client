@@ -11,7 +11,7 @@ DEFAULT_LOG_LEVEL = "info"
 def parse_args():
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(description="Call Ship2Anywhere quote service")
-    parser.add_argument('--api_url', help='Tornado server bind port', required=True)
+    parser.add_argument('--api_url', help='Api url', required=True)
     parser.add_argument('--log', help='Log level, default: %s' % DEFAULT_LOG_LEVEL,
         default=DEFAULT_LOG_LEVEL)
     return parser.parse_args()
