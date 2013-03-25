@@ -1,7 +1,7 @@
 class S2aApiException(Exception):
     def __init__(self, msg, code):
         self.code = code
-        Expection.__init__(self, msg)
+        Exception.__init__(self, msg)
 
 class ServerException(S2aApiException):
     """500"""

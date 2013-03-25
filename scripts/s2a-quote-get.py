@@ -1,5 +1,6 @@
 import logging
 import argparse
+import json
 
 from s2a_api import logutil
 from s2a_api import quote
@@ -23,20 +24,25 @@ if __name__ == "__main__":
     logutil.setup_logger(log_level)
     quote_service = quote.QuoteService(args.api_url)
 
-    #TODO - add arg control
     sample_file_name = args.json_file
     try:
-        json_data = eval(open(sample_file_name).read())
-        #logutil.info('File ' + sample_file_name + 'opened')
+        json_data = json.load(open(sample_file_name))
+        LOG.info('File ' + sample_file_name + ' opened')
     except IOError:
-        print 'cannot open', sample_file_name
-        exit()
-    except SyntaxError:
-        print 'file is not in json format'
-        exit()
+        LOG.error('cannot open ', sample_file_name)
+        exit(1)
+    except ValueError:
+        LOG.error('File is not in JSON format')
+        exit(1)
         
-    r = quote_service.get_quote(json_data)
-    print r
-    
-
-    # TODO
+    try:
+        r = quote_service.get_quote(json_data)
+        print json.dumps(r, indent=4)
+    except Exception as e:
+        try:
+            LOG.error(str(e.code) + ": " + str(e))
+        except:
+            LOG.error(e)
+        finally:
+            exit(1)
+    exit(0)
