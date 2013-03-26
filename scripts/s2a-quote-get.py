@@ -4,6 +4,7 @@ import json
 
 from s2a_api import logutil
 from s2a_api import quote
+from s2a_api.exception import S2aApiException
 
 LOG = logging.getLogger(__name__)
 
@@ -38,11 +39,11 @@ if __name__ == "__main__":
     try:
         r = quote_service.get_quote(json_data)
         print json.dumps(r, indent=4)
+    except S2aApiException as e:
+        LOG.error(str(e.code) + ": " + str(e))
+        exit(1)
     except Exception as e:
-        try:
-            LOG.error(str(e.code) + ": " + str(e))
-        except:
-            LOG.error(e)
-        finally:
-            exit(1)
+        LOG.error(e)
+        exit(1)
+
     exit(0)
