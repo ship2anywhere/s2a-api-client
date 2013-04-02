@@ -42,7 +42,7 @@ class QuoteService(object):
         elif resp.status_code == requests.codes['NOT_FOUND'] :
             msg = self.__json_check('BAD_REQUEST')
             LOG.error(msg)
-            raise exception.RequestException(msg)
+            raise exception.NotFoundException(msg)
 
         elif resp.status_code == requests.codes['METHOD_NOT_ALLOWED'] :
             msg = self.__json_check('METHOD_NOT_ALLOWED')
