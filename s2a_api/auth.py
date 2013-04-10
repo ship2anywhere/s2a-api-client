@@ -36,9 +36,8 @@ class AuthService(object):
                 else:
                     raise Exception
             except ValueError, Exception:
-                msg = "API returned corrupted message"
-                LOG.exception(msg)
-                return msg
+                LOG.exception("API returned corrupted message")
+                raise
                 
         elif resp.status_code == requests.codes['BAD_REQUEST']:
             # assert resp.status_code == resp.json().get('code'), "Return Codes do not match."

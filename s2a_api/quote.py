@@ -24,9 +24,8 @@ class QuoteService(object):
                 LOG.info("Response code = " + str(resp.status_code))
                 return json_dict
             except ValueError:
-                msg = "API returned corrupted message"
-                LOG.exception(msg)
-                return msg
+                LOG.exception("API returned corrupted message")
+                raise
             
         elif resp.status_code == requests.codes['BAD_REQUEST']:
             # assert resp.status_code == resp.json().get('code'), "Return Codes do not match."
