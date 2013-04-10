@@ -62,7 +62,6 @@ class QuoteService(object):
     def __json_check(self, error_type, resp):
         msg = error_type
         try:
-            print "asdf"
             json_dict = resp.json()
             if json_dict.has_key('message'):
                 msg += ": " + json_dict.get('message')
