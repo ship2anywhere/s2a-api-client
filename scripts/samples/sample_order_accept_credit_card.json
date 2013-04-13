@@ -1,0 +1,15 @@
+ {
+    "order": {
+        "id": "S2AO000001",
+        "payment": {
+            "type": "credit_card",
+            "credit_card": {
+                "number": "4444333322221111",
+                "cvv": "111",
+                "holder_name": "Foo Bar",
+                "expire": "11/17"
+            }
+        }
+    },
+    "callback": "http://s2asandbox.com:8888/"
+}

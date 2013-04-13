@@ -1,0 +1,9 @@
+{
+    "order": {
+        "id": "S2AO000001",
+        "payment": {
+            "type": "credit"
+        }
+    },
+    "callback": "https://example.com/callback/"
+}
