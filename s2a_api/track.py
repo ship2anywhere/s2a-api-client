@@ -14,7 +14,7 @@ class TrackService(object):
     def track(self, id):
         """ Track """
         LOG.info("Calling track service")
-        url = api_url + id
+        url = self.api_url + id
         resp = requests.get(url=url, verify=False)
 
         if resp.status_code == requests.codes['OK']:
