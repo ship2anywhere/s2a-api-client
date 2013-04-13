@@ -25,6 +25,12 @@ if __name__ == "__main__":
     logutil.setup_logger(log_level)
     quote_service = quote.QuoteService(args.api_url)
 
+    try:
+        with open(args.json_file): pass
+    except IOError:
+        LOG.error("File " + args.json_file +" does not exist")
+        exit(1)
+        
     sample_file_name = args.json_file
     try:
         json_data = json.load(open(sample_file_name))
