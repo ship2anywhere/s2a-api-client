@@ -46,9 +46,6 @@ if __name__ == "__main__":
     try:
         r = order_service.create_order(json_data, args.token)
         print json.dumps(r, indent=4)
-    except S2aApiException as e:
-        LOG.error(str(e.code) + ": " + str(e))
-        exit(1)
     except Exception as e:
         LOG.error(e)
         exit(1)

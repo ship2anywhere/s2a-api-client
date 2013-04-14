@@ -14,6 +14,7 @@ def parse_args():
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(description="Call Ship2Anywhere make order service")
     parser.add_argument('--api_url', help='Api url', required=True)
+    parser.add_argument('--order_id', help='Order ID', required=True)
     parser.add_argument('--token', help='Access Token', required=True)
     parser.add_argument('--json_file', help='Json data', required=True)
     parser.add_argument('--log', help='Log level, default: %s' % DEFAULT_LOG_LEVEL,
@@ -44,11 +45,8 @@ if __name__ == "__main__":
         exit(1)
         
     try:
-        r = order_service.accept_order(json_data, args.token)
+        r = order_service.accept_order(json_data, args.order_id, args.token)
         print json.dumps(r, indent=4)
-    except S2aApiException as e:
-        LOG.error(str(e.code) + ": " + str(e))
-        exit(1)
     except Exception as e:
         LOG.error(e)
         exit(1)

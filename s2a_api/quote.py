@@ -3,13 +3,14 @@ import json
 import requests
 import exception
 from error_handler import handle_error
+from slash_appender import append_slash
 
 LOG = logging.getLogger(__name__)
 
 class QuoteService(object):
   
     def __init__(self, api_url):
-        self.api_url = api_url
+        self.api_url = append_slash(api_url)
 
     def get_quote(self, request):
         """ Get quote """
@@ -26,4 +27,5 @@ class QuoteService(object):
             return json_dict
         except ValueError:
             LOG.exception("API returned corrupted message")
-            raise
+            raise S2aApiException("API returned corrupted message: " + str(e))
+

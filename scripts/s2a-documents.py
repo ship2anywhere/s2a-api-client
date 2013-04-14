@@ -3,7 +3,7 @@ import argparse
 import json
 
 from s2a_api import logutil
-from s2a_api import order
+from s2a_api import doc
 from s2a_api.exception import S2aApiException
 
 LOG = logging.getLogger(__name__)
@@ -29,9 +29,6 @@ if __name__ == "__main__":
     try:
         r = document_service.download_documents(args.order_id, args.token)
         print json.dumps(r, indent=4)
-    except S2aApiException as e:
-        LOG.error(str(e.code) + ": " + str(e))
-        exit(1)
     except Exception as e:
         LOG.error(e)
         exit(1)

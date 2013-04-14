@@ -14,7 +14,7 @@ def parse_args():
     """ Parse command line arguments """
     parser = argparse.ArgumentParser(description="Call Ship2Anywhere fetch order service")
     parser.add_argument('--api_url', help='Api url', required=True)
-    parser.add_argument('--id', help='ID', required=True)
+    parser.add_argument('--tracking_number', help='Tracking Number', required=True)
     parser.add_argument('--log', help='Log level, default: %s' % DEFAULT_LOG_LEVEL,
         default=DEFAULT_LOG_LEVEL)
     return parser.parse_args()
@@ -26,11 +26,8 @@ if __name__ == "__main__":
     track_service = track.TrackService(args.api_url)
         
     try:
-        r = track_service.track(args.id)
+        r = track_service.track(args.tracking_number)
         print json.dumps(r, indent=4)
-    except S2aApiException as e:
-        LOG.error(str(e.code) + ": " + str(e))
-        exit(1)
     except Exception as e:
         LOG.error(e)
         exit(1)

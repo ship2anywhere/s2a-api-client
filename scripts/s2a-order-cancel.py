@@ -15,7 +15,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Call Ship2Anywhere cancel order service")
     parser.add_argument('--api_url', help='Api url', required=True)
     parser.add_argument('--token', help='Access Token', required=True)
-    parser.add_argument('--id', help='ID', required=True)
+    parser.add_argument('--order_id', help='ID', required=True)
     parser.add_argument('--log', help='Log level, default: %s' % DEFAULT_LOG_LEVEL,
         default=DEFAULT_LOG_LEVEL)
     return parser.parse_args()
@@ -27,11 +27,8 @@ if __name__ == "__main__":
     order_service = order.OrderService(args.api_url)
         
     try:
-        r = order_service.cancel_order(args.id, args.token)
+        r = order_service.cancel_order(args.order_id, args.token)
         print json.dumps(r, indent=4)
-    except S2aApiException as e:
-        LOG.error(str(e.code) + ": " + str(e))
-        exit(1)
     except Exception as e:
         LOG.error(e)
         exit(1)

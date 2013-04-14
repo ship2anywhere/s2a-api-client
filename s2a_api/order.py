@@ -3,13 +3,14 @@ import json
 import requests
 import exception
 from error_handler import handle_error
+from slash_appender import append_slash
 
 LOG = logging.getLogger(__name__)
 
 class OrderService(object):
   
     def __init__(self, api_url):
-        self.api_url = api_url
+        self.api_url = append_slash(api_url)
 
     def create_order(self, request, token):
         """ Create order """
@@ -27,9 +28,9 @@ class OrderService(object):
             json_dict = resp.json()
             LOG.info("Response code = " + str(resp.status_code))
             return json_dict
-        except ValueError:
+        except ValueError as e:
             LOG.exception("API returned corrupted message")
-            raise
+            raise S2aApiException("API returned corrupted message: " + str(e))
 
     def accept_order(self, request, order_id, token):
         # if IDs have to be equal. If so, then does it need to be parsed?
@@ -37,27 +38,27 @@ class OrderService(object):
         """ Accept order """
         LOG.info("Calling order service")
         req = {"request": request}
-        url = self.api_url + order_id + "/accept"
+        url = self.api_url + order_id + "/accept/"
         headers = {'Content-Type': 'application/json',
                    'charset': 'UTF-8',
                    "Authorization": "Bearer " + token}
 
-        resp = requests.post(url=url, data=json.dumps(req), headers=headers, verify=False)
+        resp = requests.put(url=url, data=json.dumps(req), headers=headers, verify=False)
 
-        handle_error(resp)
+        handle_error(resp, (201,200))
         
         try:
             json_dict = resp.json()
             LOG.info("Response code = " + str(resp.status_code))
             return json_dict
-        except ValueError:
+        except ValueError as e:
             LOG.exception("API returned corrupted message")
-            raise
+            raise S2aApiException("API returned corrupted message: " + str(e))
             
     def cancel_order(self, order_id, token):
         """ Cancel order """
         LOG.info("Calling order service")
-        url = self.api_url + order_id
+        url = self.api_url + order_id + "/"
         headers = {"Authorization": "Bearer " + token}
 
         resp = requests.delete(url=url, headers=headers, verify=False)
@@ -68,14 +69,14 @@ class OrderService(object):
             json_dict = resp.json()
             LOG.info("Response code = " + str(resp.status_code))
             return json_dict
-        except ValueError:
+        except ValueError as e:
             LOG.exception("API returned corrupted message")
-            raise            
+            raise S2aApiException("API returned corrupted message: " + str(e))        
             
     def fetch_order(self, order_id, token):
         """ Fetch order """
         LOG.info("Calling order service")
-        url = self.api_url + order_id
+        url = self.api_url + order_id + "/"
         headers = {"Authorization": "Bearer " + token}
 
         resp = requests.get(url=url, headers=headers, verify=False)
@@ -86,6 +87,6 @@ class OrderService(object):
             json_dict = resp.json()
             LOG.info("Response code = " + str(resp.status_code))
             return json_dict
-        except ValueError:
+        except ValueError as e:
             LOG.exception("API returned corrupted message")
-            raise
+            raise S2aApiException("API returned corrupted message: " + str(e))

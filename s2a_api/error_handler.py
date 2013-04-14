@@ -4,8 +4,8 @@ import logging
 
 LOG = logging.getLogger(__name__)
 
-def  handle_error(resp):
-    if resp.status_code == requests.codes['OK']:
+def  handle_error(resp, success_codes=(200,)):
+    if resp.status_code in success_codes:
         return
         
     elif resp.status_code == requests.codes['BAD_REQUEST']:
@@ -39,17 +39,17 @@ def  handle_error(resp):
         raise exception.ServerException(msg)
         
     else:
-        msg = __json_check('Unknown Error', resp)
+        msg = __json_check('Unexpected Status Code', resp)
         LOG.error(msg)
-        raise exception.S2aApiException(msg)
+        raise exception.S2aApiHttpException(msg, resp.status_code)
 
 def __json_check(error_type, resp):
     msg = error_type
     try:
         json_dict = resp.json()
-        if json_dict.has_key('error'):
-            msg += ": " + json_dict.get('error')
-        elif json_dict.has_key('message'):
+        #if json_dict.has_key('error'):
+        #    msg += ": " + json_dict.get('error')
+        if json_dict.has_key('message'):
             msg += ": " + json_dict.get('message')
     except ValueError:
         LOG.exception("API returned corrupted message")
