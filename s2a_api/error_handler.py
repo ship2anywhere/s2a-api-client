@@ -5,8 +5,10 @@ import logging
 LOG = logging.getLogger(__name__)
 
 def  handle_error(resp):
-    if resp.status_code == requests.codes['BAD_REQUEST']:
-        # assert resp.status_code == resp.json().get('code'), "Return Codes do not match."
+    if resp.status_code == requests.codes['OK']:
+        return
+        
+    elif resp.status_code == requests.codes['BAD_REQUEST']:
         msg = __json_check('BAD_REQUEST', resp)
         LOG.error(msg)
         raise exception.RequestException(msg, 400)
@@ -35,6 +37,11 @@ def  handle_error(resp):
         msg = __json_check('SERVER_ERROR', resp)
         LOG.error(msg)
         raise exception.ServerException(msg)
+        
+    else:
+        msg = __json_check('Unknown Error', resp)
+        LOG.error(msg)
+        raise exception.S2aApiException(msg)
 
 def __json_check(error_type, resp):
     msg = error_type

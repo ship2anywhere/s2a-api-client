@@ -4,10 +4,7 @@
             {
                 "transient_id": "123",
                 "service": {
-                    "code": "service_code",
-                    "options": [
-                        "option_code_1"
-                    ]
+                    "code": "1002"
                 },
                 "collection_type": "pickup",
                 "collection": {
@@ -25,7 +22,7 @@
                         "address line 3"
                     ],
                     "pickup": {
-                        "date": "2012-09-03",
+                        "date": "2014-09-03",
                         "time_earliest": "09:00",
                         "time_latest": "14:00"
                     }
@@ -47,10 +44,17 @@
                 },
                 "packages": [
                     {
-                        "height": 10,
-                        "width": 15,
-                        "length": 20,
+                        "length": 10,
+                        "width": 20,
+                        "height": 30,
                         "weight": 3,
+                        "unit": "cm"
+                    },
+                    {
+                        "length": 23,
+                        "width": 34,
+                        "height": 44,
+                        "weight": 9,
                         "unit": "cm"
                     }
                 ],

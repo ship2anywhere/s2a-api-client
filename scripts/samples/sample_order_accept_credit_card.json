@@ -1,6 +1,5 @@
  {
     "order": {
-        "id": "S2AO000001",
         "payment": {
             "type": "credit_card",
             "credit_card": {

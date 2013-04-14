@@ -1,0 +1,75 @@
+{    "order": {
+        "shipments": [
+            {
+                "transient_id": "grabowski",
+
+                "service": {
+                    "code": "1002"
+                },
+                "collection_type": "pickup",
+                "collection": {
+                    "first_name": "collectionfirstname",
+                    "last_name": "collectionfirstname",
+                    "company": "collectionCompany",
+                    "email": "collection@microtest.pl",
+                    "phone": "+48999666333",
+                    "country": "AU",
+                    "postcode": "3000",
+                    "city": "Melbourne",
+                    "address_lines": [
+                        "street",
+                        "32-540 Trzebinia",
+                        "poland"
+                    ],
+                    "pickup": {
+                        "date": "2013-04-16",
+                        "time_earliest": "10:00",
+                        "time_latest": "13:00"
+                    }
+                },
+                "delivery": {
+                    "first_name": "bb",
+                    "last_name": "ff",
+                    "company": "Ship2Anywhere Pty Ltd",
+                    "email": "devlivery@microtest.pl",
+                    "phone": "12312312312",
+                    "country": "PL",
+                    "postcode": "32540",
+                    "city": "Trzebinia",
+                    "address_lines": [
+                        "street",
+                        "West Melbourne",
+                        "Victoria, 3003"
+                    ]
+                },
+                "packages": [
+                    {
+                        "height": 1,
+                        "width": 1,
+                        "length": 1,
+
+                        "weight": 1,
+                        "unit": "cm"
+                    }
+                ],
+                "customs_information": {
+                    "description": "documents, food",
+
+                    "reason": "purchase",
+                    "tax_status": "company",
+                    "lithium": false,
+                    "items": [
+                        {
+                            "description": "documents, food",
+                            "quantity": 1,
+                            "value": 5,
+                            "currency": "AUD",
+                            "madein": "AU"
+                        }
+                    ]
+                },
+                "description": "documents, food"
+            }
+        ]
+    }
+}
