@@ -3,7 +3,7 @@ import json
 import requests
 import exception
 from error_handler import handle_error
-from slash_appender import append_slash
+from util import append_slash
 
 LOG = logging.getLogger(__name__)
 
@@ -14,9 +14,15 @@ class TrackService(object):
 
     def track(self, tracking_number):
         """ Track """
-        LOG.info("Calling track service")
         url = self.api_url + tracking_number + "/"
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s" % (url,))
+        
         resp = requests.get(url=url, verify=False)
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
 
         handle_error(resp)
         

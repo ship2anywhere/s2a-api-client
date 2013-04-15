@@ -3,7 +3,7 @@ import json
 import requests
 import exception
 from error_handler import handle_error
-from slash_appender import append_slash
+from util import append_slash
 
 LOG = logging.getLogger(__name__)
 
@@ -14,14 +14,19 @@ class OrderService(object):
 
     def create_order(self, request, token):
         """ Create order """
-        LOG.info("Calling order service")
         req = {"request": request}
         headers = {'Content-Type': 'application/json',
                    'charset': 'UTF-8',
                    "Authorization": "Bearer " + token}
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Data: %s ; Request Token: %s" % (self.api_url, req, token))
+        
         resp = requests.post(url=self.api_url, data=json.dumps(req), headers=headers, verify=False)
-
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
+        
         handle_error(resp)
         
         try:
@@ -33,17 +38,20 @@ class OrderService(object):
             raise S2aApiException("API returned corrupted message: " + str(e))
 
     def accept_order(self, request, order_id, token):
-        # if IDs have to be equal. If so, then does it need to be parsed?
-        # Answer: has to be, but it is not required in JSON
-        """ Accept order """
-        LOG.info("Calling order service")
+        """ Accept order """]
         req = {"request": request}
         url = self.api_url + order_id + "/accept/"
         headers = {'Content-Type': 'application/json',
                    'charset': 'UTF-8',
                    "Authorization": "Bearer " + token}
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Data: %s ; Request Token: %s" % (url, req, token))
+        
         resp = requests.put(url=url, data=json.dumps(req), headers=headers, verify=False)
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
 
         handle_error(resp, (201,200))
         
@@ -57,11 +65,16 @@ class OrderService(object):
             
     def cancel_order(self, order_id, token):
         """ Cancel order """
-        LOG.info("Calling order service")
         url = self.api_url + order_id + "/"
         headers = {"Authorization": "Bearer " + token}
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Token: %s" % (url, token))
+        
         resp = requests.delete(url=url, headers=headers, verify=False)
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
 
         handle_error(resp)
         
@@ -75,11 +88,16 @@ class OrderService(object):
             
     def fetch_order(self, order_id, token):
         """ Fetch order """
-        LOG.info("Calling order service")
         url = self.api_url + order_id + "/"
         headers = {"Authorization": "Bearer " + token}
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Token: %s" % (url, token))
+            
         resp = requests.get(url=url, headers=headers, verify=False)
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
 
         handle_error(resp)
 

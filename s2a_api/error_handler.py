@@ -39,9 +39,9 @@ def  handle_error(resp, success_codes=(200,)):
         raise exception.ServerException(msg)
         
     else:
-        msg = __json_check('Unexpected Status Code', resp)
-        LOG.error(msg)
-        raise exception.S2aApiHttpException(msg, resp.status_code)
+        LOG.warning("Unexpected return code: %s" % resp.status_code)
+        # msg = __json_check('Unexpected Status Code', resp)
+        # raise exception.S2aApiHttpException(msg, resp.status_code)
 
 def __json_check(error_type, resp):
     msg = error_type

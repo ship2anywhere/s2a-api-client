@@ -3,7 +3,7 @@ import json
 import requests
 import exception
 from error_handler import handle_error
-from slash_appender import append_slash
+from util import append_slash
 
 LOG = logging.getLogger(__name__)
 
@@ -14,11 +14,17 @@ class QuoteService(object):
 
     def get_quote(self, request):
         """ Get quote """
-        LOG.info("Calling quote service")
         req = {"request": request}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Data: %s" % (self.api_url, req))
+        
         resp = requests.post(url=self.api_url, data=json.dumps(req), headers=headers, verify=False)
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
+        
         handle_error(resp)
 
         try:

@@ -3,7 +3,7 @@ import json
 import requests
 import exception
 from error_handler import handle_error
-from slash_appender import append_slash
+from util import append_slash
 
 LOG = logging.getLogger(__name__)
 
@@ -14,11 +14,16 @@ class DocumentService(object):
 
     def download_documents(self, order_id, token):
         """ Download documents """
-        LOG.info("Calling order service")
         url = self.api_url + order_id + "/documents/"
         headers = {"Authorization": "Bearer " + token}
 
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Request URL: %s ; Request Token: %s" % (url, token))
+            
         resp = requests.get(url=url, headers=headers, verify=False)
+        
+        if LOG.isEnabledFor(logging.DEBUG):
+            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
 
         handle_error(resp)
         
