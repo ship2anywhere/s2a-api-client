@@ -1,7 +1,4 @@
 import logging
-import json
-import requests
-import exception
 from error_handler import hadle_error
 
 LOG = logging.getLogger(__name__)
@@ -24,25 +21,4 @@ class AuthService(object):
             'code': code
             }
         
-        if LOG.isEnabledFor(logging.DEBUG):
-            LOG.debug("Request URL: %s" % (url,))
-            
-        resp = requests.post(url=self.api_url, data=data, headers=headers, verify=self.verify_cert)
-         
-        if LOG.isEnabledFor(logging.DEBUG):
-            LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
-
-        handle_error(resp)
-         
-        try:
-            json_dict = resp.json()
-            if json_dict.has_key('access_token'):
-                return str(json_dict.get('access_token'))
-            else:
-                raise KeyError("Response is missing access_token")
-        except ValueError as e:
-            LOG.exception("API returned corrupted message")
-            raise exception.S2aApiException("API returned corrupted message: " + str(e))
-        
-        
-       
+        return api_call("post", self.api_url, data=data, headers=headers)
