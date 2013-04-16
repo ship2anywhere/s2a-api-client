@@ -38,7 +38,7 @@ class OrderService(object):
             raise S2aApiException("API returned corrupted message: " + str(e))
 
     def accept_order(self, request, order_id, token):
-        """ Accept order """]
+        """ Accept order """
         req = {"request": request}
         url = self.api_url + order_id + "/accept/"
         headers = {'Content-Type': 'application/json',
