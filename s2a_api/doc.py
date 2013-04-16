@@ -9,8 +9,9 @@ LOG = logging.getLogger(__name__)
 
 class DocumentService(object):
   
-    def __init__(self, api_url):
+    def __init__(self, api_url, verify_cert = False):
         self.api_url = append_slash(api_url)
+        self.verify_cert = verify_cert
 
     def download_documents(self, order_id, token):
         """ Download documents """
@@ -20,7 +21,7 @@ class DocumentService(object):
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Request URL: %s ; Request Token: %s" % (url, token))
             
-        resp = requests.get(url=url, headers=headers, verify=False)
+        resp = requests.get(url=url, headers=headers, verify = verify_cert)
         
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
@@ -29,7 +30,6 @@ class DocumentService(object):
         
         try:
             json_dict = resp.json()
-            LOG.info("Response code = " + str(resp.status_code))
             return json_dict
         except ValueError as e:
             LOG.exception("API returned corrupted message")

@@ -3,8 +3,65 @@ s2a-api
 
 Ship2Anywhere API client library
 
-1. Services.
+Services
+========
+Service modules are located at s2a_api/
 
-2. Exceptions.
+1. Quote Service
+   The 'Get quote' service allows for obtaining shipping quotes from carriers integrated with Ship2Anywhere.
+   
+   Constructor arguments:
+        - api_url: root URL for API service, eg. https://api.s2asandbox.com/v1.0/quote/
+    
+   Method: get_quote:
+        - arguments: dictionary compilant with JSON structure for Quote Request
+        - return value: dictionary compilant with JSON structure for Quote Response
+    
+2. Order Service
+    
+3. Documentation Service
+    
+4. Tracking Service
 
-3. Scripts.
+Exceptions
+==========
+
+1. S2aApiException(Exception):
+    def __init__(self, msg):
+        Exception.__init__(self, msg)
+        
+2. S2aApiHttpException(S2aApiException):
+    def __init__(self, msg, code):
+        self.code = code
+        S2aApiException.__init__(self, msg)
+    def __str__(self):
+        return "%s: %s" % (self.code, self.message)
+
+3. ServerException(S2aApiHttpException):
+    """500"""
+    def __init__(self, msg):
+        S2aApiHttpException.__init__(self, msg, 500)
+
+4. RequestException(S2aApiHttpException):
+    """400; 405"""
+    def __init__(self, msg, code):
+        S2aApiHttpException.__init__(self, msg, code)
+
+5. AccessException(S2aApiHttpException):
+    """403"""
+    def __init__(self, msg):
+        S2aApiHttpException.__init__(self, msg, 403)
+
+6. NotFoundException(S2aApiHttpException):
+    """404"""
+    def __init__(self, msg):
+        S2aApiHttpException.__init__(self, msg, 404)
+
+7. ServiceLogicException(S2aApiHttpException):
+    """412"""
+    def __init__(self, msg):
+        S2aApiHttpException.__init__(self, msg, 412)
+
+
+Scripts
+=======

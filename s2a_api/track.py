@@ -9,8 +9,9 @@ LOG = logging.getLogger(__name__)
 
 class TrackService(object):
   
-    def __init__(self, api_url):
+    def __init__(self, api_url, verify_cert = False):
         self.api_url = append_slash(api_url)
+        self.verify_cert = verify_cert
 
     def track(self, tracking_number):
         """ Track """
@@ -19,7 +20,7 @@ class TrackService(object):
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Request URL: %s" % (url,))
         
-        resp = requests.get(url=url, verify=False)
+        resp = requests.get(url=url, verify=self.verify_cert)
         
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
@@ -28,7 +29,6 @@ class TrackService(object):
         
         try:
             json_dict = resp.json()
-            LOG.info("Response code = " + str(resp.status_code))
             return json_dict
         except ValueError as e:
             LOG.exception("API returned corrupted message")

@@ -9,8 +9,9 @@ LOG = logging.getLogger(__name__)
 
 class QuoteService(object):
   
-    def __init__(self, api_url):
+    def __init__(self, api_url, verify_cert = False):
         self.api_url = append_slash(api_url)
+        self.verify_cert = verify_cert
 
     def get_quote(self, request):
         """ Get quote """
@@ -20,7 +21,7 @@ class QuoteService(object):
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Request URL: %s ; Request Data: %s" % (self.api_url, req))
         
-        resp = requests.post(url=self.api_url, data=json.dumps(req), headers=headers, verify=False)
+        resp = requests.post(url=self.api_url, data=json.dumps(req), headers=headers, verify = verify_cert)
 
         if LOG.isEnabledFor(logging.DEBUG):
             LOG.debug("Status Code: %s; Response Body: %s" % (resp.status_code, resp.text))
@@ -29,7 +30,6 @@ class QuoteService(object):
 
         try:
             json_dict = resp.json()
-            LOG.info("Response code = " + str(resp.status_code))
             return json_dict
         except ValueError:
             LOG.exception("API returned corrupted message")
