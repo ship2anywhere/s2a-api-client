@@ -14,4 +14,4 @@ class TrackService(object):
         """ Track """
         url = self.api_url + "track/" + tracking_number + "/"
         
-        return api_call("get", url)
+        return api_call("get", url, verify_cert=self.verify_cert)

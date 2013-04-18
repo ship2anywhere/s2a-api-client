@@ -17,6 +17,21 @@ Service modules are located at s2a_api/
         - arguments: dictionary compilant with JSON structure for Quote Request
         - return value: dictionary compilant with JSON structure for Quote Response
     
+    # import s2a_api client
+    from s2a_api import logutil
+    from s2a_api import quote
+    from s2a_api.exception import S2aApiException
+    
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    quote_service = quote.QuoteService(api_url)
+    
+    # get quote
+    json_data = {} # ... add JSON structure for Quote Service 
+    r = quote_service.get_quote(json_data) # method returns dictionary
+                                           # compilant with JSON structure
+                                           # for Quote Response
+    
 2. Order Service
     
 3. Documentation Service

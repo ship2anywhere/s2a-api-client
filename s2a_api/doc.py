@@ -14,4 +14,4 @@ class DocumentService(object):
         """ Download documents """
         url = self.api_url + "orders/" + order_id + "/documents/"
         
-        return api_call("get", url, token=token)
+        return api_call("get", url, token=token, verify_cert=self.verify_cert)
