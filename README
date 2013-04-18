@@ -1,5 +1,5 @@
-s2a-api
-=======
+s2a_api_client
+==============
 
 Ship2Anywhere API client library
 
@@ -8,75 +8,191 @@ Services
 Service modules are located at s2a_api/
 
 1. Quote Service
-   The 'Get quote' service allows for obtaining shipping quotes from carriers integrated with Ship2Anywhere.
-   
-   Constructor arguments:
-        - api_url: root URL for API service, eg. https://api.s2asandbox.com/v1.0/quote/
+    The 'Get quote' service allows for obtaining shipping quotes from carriers integrated with Ship2Anywhere.
     
-   Method: get_quote:
-        - arguments: dictionary compilant with JSON structure for Quote Request
-        - return value: dictionary compilant with JSON structure for Quote Response
+    Example: 
     
-    # import s2a_api client
-    from s2a_api import logutil
-    from s2a_api import quote
-    from s2a_api.exception import S2aApiException
+    # import s2a api client
+    from s2a_api_client  import quote
     
     # create object
     api_url = "https://api.s2asandbox.com/v1.0/"
     quote_service = quote.QuoteService(api_url)
     
     # get quote
-    json_data = {} # ... add JSON structure for Quote Service 
-    r = quote_service.get_quote(json_data) # method returns dictionary
-                                           # compilant with JSON structure
-                                           # for Quote Response
+    request = {} # add python structure for Quote Service 
+    r = quote_service.get_quote(request) # method returns dictionary
+                                         # compilant with JSON structure
+                                         # for Quote Response
     
 2. Order Service
+    a. Create order
+    The 'Create order' service initializes the booking process.
+    
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import order
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    order_service = order.OrderService(api_url)
+    
+    # create order
+    request = {} # add python structure for Create Order Service
+    token = "1234567890" # token from OAuth2.0 service
+    r = order_service.create_order(request, token) # method returns dictionary
+                                                   # compilant with JSON structure
+                                                   # for Order Response
+                                                   
+    b. Accept order
+    After creating an order the client can either accept or cancel it. When the order has been
+    accepted (payment information provided), the booking process begins.
+    
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import order
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    order_service = order.OrderService(api_url)
+    
+    # accept order
+    request = {} # add python structure for Create Order Service
+    order_id = "S2AO000001" # S2A Order ID
+    token = "1234567890" # token from OAuth2.0 service
+    r = order_service.accept_order(request, order_id, token) # method returns dictionary
+                                                   # compilant with JSON structure
+                                                   # for Order Response
+                                                   
+    c. Accept order
+    Cancel created order.
+    
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import order
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    order_service = order.OrderService(api_url)
+    
+    # accept order
+    order_id = "S2AO000001" # S2A Order ID
+    token = "1234567890" # token from OAuth2.0 service
+    r = order_service.cancel_order(order_id, token) # method returns dictionary
+                                                    # compilant with JSON structure
+                                                    # for Order Response
+                                                    
+    d. Fetch order
+    The 'Fetch order' service allows for monitoring booking with the polling technique
+    
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import order
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    order_service = order.OrderService(api_url)
+    
+    # accept order
+    order_id = "S2AO000001" # S2A Order ID
+    token = "1234567890" # token from OAuth2.0 service
+    r = order_service.fetch_order(order_id, token) # method returns dictionary
+                                                    # compilant with JSON structure
+                                                    # for Order Response
     
 3. Documentation Service
+    The 'Documentation" service allows downloading shipping documents which includes shipping labels
+
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import doc
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    document_service = doc.DocumentService(api_url)
+    
+    # accept order
+    order_id = "S2AO000001" # S2A Order ID
+    token = "1234567890" # token from OAuth2.0 service
+    r = document_service.download_documents(order_id, token) # method returns dictionary
+                                                             # compilant with JSON structure
+                                                             # for Documentation Response
     
 4. Tracking Service
+    Tracking allows for obtaining information concerning the state of the shipment
+    
+    Example: 
+    
+    # import s2a api client
+    from s2a_api_client import track
+
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    track_service = track.TrackService(api_url)
+    
+    # accept order
+    tracking_number = "ABC123" # Tracking Number
+    r = track_service.track(args.tracking_number) # method returns dictionary
+                                                  # compilant with JSON structure
+                                                  # for Documentation Response
+                                                  
+5. S2aApi Class
+    If you want to access whole set of services, you could use S2aApi class, which includes all of
+    the services.
+    
+    Example:
+    
+    # import s2a api client
+    from s2a_api_client import S2aApi
+    
+    # create object
+    api_url = "https://api.s2asandbox.com/v1.0/"
+    s2a_api = S2aApi(api_url)
+    
+    # get services
+    s2a_api.quote_service.get_quote(...)
+    s2a_api.order_service.create_order(...)
+    s2a_api.order_service.accept_order(...)
+    s2a_api.order_service.cancel_order(...)
+    s2a_api.order_service.fetch_order(...)
+    s2a_api.doc_service.download_documents(...)
+    s2a_api.track_service.track(...)
 
 Exceptions
 ==========
 
-1. S2aApiException(Exception):
-    def __init__(self, msg):
-        Exception.__init__(self, msg)
+TODO
+
+Each exception contains of error message and HTTP Response Code, except of S2aApiException, which
+contains only error message.
+
+1. S2aApiException
+Exception is raised if ...
         
-2. S2aApiHttpException(S2aApiException):
-    def __init__(self, msg, code):
-        self.code = code
-        S2aApiException.__init__(self, msg)
-    def __str__(self):
-        return "%s: %s" % (self.code, self.message)
+2. S2aApiHttpException
 
-3. ServerException(S2aApiHttpException):
-    """500"""
-    def __init__(self, msg):
-        S2aApiHttpException.__init__(self, msg, 500)
+3. ServerException
 
-4. RequestException(S2aApiHttpException):
-    """400; 405"""
-    def __init__(self, msg, code):
-        S2aApiHttpException.__init__(self, msg, code)
+4. RequestException
 
-5. AccessException(S2aApiHttpException):
-    """403"""
-    def __init__(self, msg):
-        S2aApiHttpException.__init__(self, msg, 403)
+5. AccessException
 
-6. NotFoundException(S2aApiHttpException):
-    """404"""
-    def __init__(self, msg):
-        S2aApiHttpException.__init__(self, msg, 404)
+6. NotFoundException
 
-7. ServiceLogicException(S2aApiHttpException):
-    """412"""
-    def __init__(self, msg):
-        S2aApiHttpException.__init__(self, msg, 412)
+7. ServiceLogicException
 
 
 Scripts
 =======
+
+TODO
+
+References
+==========
+
+1. S2A API Documentation: https://www.ship2anywhere.com.au/developers/api-functionality/
