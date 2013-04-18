@@ -17,10 +17,10 @@ packages = find_packages(exclude=["test*"])
 scripts = find_pyfiles('scripts')
 
 setup(
-    name = 's2a_api',
+    name = 's2a_api_client',
     version = '1.0',
     description = 'Ship2Anywhere API client library',
-    package_dir = {'s2a_api': 's2a_api'},
+    package_dir = {'s2a_api_client': 's2a_api_client'},
     packages = packages,
     scripts = scripts,
     install_requires = [

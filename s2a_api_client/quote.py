@@ -17,4 +17,5 @@ class QuoteService(object):
         req = {"request": request}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         
-        return api_call("post", url, data=json.dumps(req), headers=headers, verify_cert=self.verify_cert)
+        return api_call("post", url, data=json.dumps(req), headers=headers,
+            verify_cert=self.verify_cert)

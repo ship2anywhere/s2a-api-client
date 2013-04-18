@@ -13,7 +13,7 @@ class AuthService(object):
     
     def get_token(self, code):
         """ Get token """        
-        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+        headers = {'Content-type': 'application/json', 'Accept': 'text/plain'} # url-encoded
         data = {
             'grant_type': 'authorization_code',
             'client_id': self.client_id,
@@ -21,4 +21,5 @@ class AuthService(object):
             'code': code
             }
         
-        return api_call("post", self.api_url, data=data, headers=headers)
+        return api_call("post", self.api_url, data=data, headers=headers,
+            verify_cert=self.verify_cert)

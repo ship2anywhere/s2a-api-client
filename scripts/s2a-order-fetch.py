@@ -2,9 +2,9 @@ import logging
 import argparse
 import json
 
-from s2a_api import logutil
-from s2a_api import order
-from s2a_api.exception import S2aApiException
+from s2a_api_client import logutil
+from s2a_api_client import order
+from s2a_api_client.exception import S2aApiException
 
 LOG = logging.getLogger(__name__)
 
