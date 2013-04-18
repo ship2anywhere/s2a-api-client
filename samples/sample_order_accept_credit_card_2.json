@@ -1,0 +1,14 @@
+{
+    "order": {
+            "payment": {
+                "type": "credit_card",
+                "credit_card": {
+                    "number": "4444333322221111",
+                    "cvv": "123",
+                    "holder_name": "michael michael",
+                    "expire": "11/17"
+                }
+            }
+        },
+        "callback": "https://api.s2asandbox.com:8888/"
+}

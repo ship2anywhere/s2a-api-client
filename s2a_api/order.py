@@ -13,16 +13,17 @@ class OrderService(object):
 
     def create_order(self, request, token):
         """ Create order """
+        url = self.api_url + "orders/"
         req = {"request": request}
         headers = {'Content-Type': 'application/json',
                    'charset': 'UTF-8'}
 
-        return api_call("post", self.api_url, data=json.dumps(req), headers=headers, token=token)
+        return api_call("post", url, data=json.dumps(req), headers=headers, token=token)
         
     def accept_order(self, request, order_id, token):
         """ Accept order """
+        url = self.api_url + "orders/" + order_id + "/accept/"
         req = {"request": request}
-        url = self.api_url + order_id + "/accept/"
         headers = {'Content-Type': 'application/json',
                    'charset': 'UTF-8'}
 
@@ -30,12 +31,12 @@ class OrderService(object):
             
     def cancel_order(self, order_id, token):
         """ Cancel order """
-        url = self.api_url + order_id + "/"
+        url = self.api_url + "orders/" + order_id + "/"
         
         return api_call("delete", url, token=token)
             
     def fetch_order(self, order_id, token):
         """ Fetch order """
-        url = self.api_url + order_id + "/"
+        url = self.api_url + "orders/" + order_id + "/"
         
         return api_call("get", url, token=token)

@@ -12,6 +12,6 @@ class TrackService(object):
 
     def track(self, tracking_number):
         """ Track """
-        url = self.api_url + tracking_number + "/"
+        url = self.api_url + "track/" + tracking_number + "/"
         
         return api_call("get", url)

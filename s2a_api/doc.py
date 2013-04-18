@@ -12,6 +12,6 @@ class DocumentService(object):
 
     def download_documents(self, order_id, token):
         """ Download documents """
-        url = self.api_url + order_id + "/documents/"
+        url = self.api_url + "orders/" + order_id + "/documents/"
         
         return api_call("get", url, token=token)

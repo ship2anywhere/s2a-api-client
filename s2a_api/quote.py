@@ -13,7 +13,8 @@ class QuoteService(object):
 
     def get_quote(self, request):
         """ Get quote """
+        url = self.api_url + "quote/"
         req = {"request": request}
         headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
         
-        return api_call("post", self.api_url, data=json.dumps(req), headers=headers)
+        return api_call("post", url, data=json.dumps(req), headers=headers)
