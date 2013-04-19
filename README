@@ -227,37 +227,45 @@ contains only error message.
 ------------------
 1. S2aApiException
 ------------------
-Exception is raised if ...
+Exception is raised if there is an error without HTTP part of functionality.
 
 ----------------------
 2. S2aApiHttpException
 ----------------------
+Exception is raised if there is an error with HTTP status code which is not supported by S2A API.
 
 ------------------
 3. ServerException
 ------------------
+Exception is raised if there is an error with HTTP status code equal to 500 - Internal Server Error
 
 -------------------
 4. RequestException
 -------------------
+Exception is raised if there is an error with HTTP status code equal to 400 - Bad Request or
+405 -Method Not Allowed
 
 ------------------
 5. AccessException
 ------------------
+Exception is raised if there is an error with HTTP status code equal to 403 - Forbidden
 
 --------------------
 6. NotFoundException
 --------------------
+Exception is raised if there is an error with HTTP status code equal to 404 - Not Found
 
 ------------------------
 7. ServiceLogicException
 ------------------------
+Exception is raised if there is an error with HTTP status code equal to 412 - Precondition Failed
 
 
 =============
 S C R I P T S
 =============
 
+Testing script is provided at the 'scripts/' directory.
 TODO
 
 
