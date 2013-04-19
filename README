@@ -12,7 +12,8 @@ I N S T A L L A T I O N
 =======================
 
 There is several ways to download and install s2a_api_client.
-s2a_api_client resides on github.com at https://github.com/ship2anywhere/s2a-api-client
+s2a_api_client resides on github.com at
+https://github.com/ship2anywhere/s2a-api-client
 
 --------
 1. Links
@@ -46,7 +47,8 @@ Service modules are located at s2a_api_client/
 ----------------
 1. Quote Service
 ----------------
-    The 'Get quote' service allows for obtaining shipping quotes from carriers integrated with Ship2Anywhere.
+    The 'Get quote' service allows for obtaining shipping quotes from
+    carriers integrated with Ship2Anywhere.
     
     Example: 
     
@@ -84,9 +86,11 @@ Service modules are located at s2a_api_client/
     # create order
     request = {} # add python structure for Create Order Service
     token = "1234567890" # token from OAuth2.0 service
-    r = order_service.create_order(request, token) # method returns dictionary
-                                                   # compilant with JSON structure
-                                                   # for Order Response
+    r = order_service.create_order(request, token)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Order Response
+    
     ~~~~~~~~~~~~~~~
     b. Accept order
     ~~~~~~~~~~~~~~~
@@ -106,9 +110,11 @@ Service modules are located at s2a_api_client/
     request = {} # add python structure for Create Order Service
     order_id = "S2AO000001" # S2A Order ID
     token = "1234567890" # token from OAuth2.0 service
-    r = order_service.accept_order(request, order_id, token) # method returns dictionary
-                                                   # compilant with JSON structure
-                                                   # for Order Response
+    r = order_service.accept_order(request, order_id, token)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Order Response
+    
     ~~~~~~~~~~~~~~~
     c. Accept order
     ~~~~~~~~~~~~~~~
@@ -126,9 +132,11 @@ Service modules are located at s2a_api_client/
     # accept order
     order_id = "S2AO000001" # S2A Order ID
     token = "1234567890" # token from OAuth2.0 service
-    r = order_service.cancel_order(order_id, token) # method returns dictionary
-                                                    # compilant with JSON structure
-                                                    # for Order Response
+    r = order_service.cancel_order(order_id, token)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Order Response
+    
     ~~~~~~~~~~~~~~
     d. Fetch order
     ~~~~~~~~~~~~~~
@@ -146,9 +154,11 @@ Service modules are located at s2a_api_client/
     # accept order
     order_id = "S2AO000001" # S2A Order ID
     token = "1234567890" # token from OAuth2.0 service
-    r = order_service.fetch_order(order_id, token) # method returns dictionary
-                                                    # compilant with JSON structure
-                                                    # for Order Response
+    r = order_service.fetch_order(order_id, token)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Order Response
+    
 --------------------
 3. Documents Service
 --------------------
@@ -167,9 +177,11 @@ Service modules are located at s2a_api_client/
     # accept order
     order_id = "S2AO000001" # S2A Order ID
     token = "1234567890" # token from OAuth2.0 service
-    r = document_service.download_documents(order_id, token) # method returns dictionary
-                                                             # compilant with JSON structure
-                                                             # for Documentation Response
+    r = document_service.download_documents(order_id, token)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Documentation Response
+    
 -------------------
 4. Tracking Service
 -------------------
@@ -187,9 +199,11 @@ Service modules are located at s2a_api_client/
     
     # accept order
     tracking_number = "ABC123" # Tracking Number
-    r = track_service.track(args.tracking_number) # method returns dictionary
-                                                  # compilant with JSON structure
-                                                  # for Documentation Response
+    r = track_service.track(args.tracking_number)
+    # method returns dictionary
+    # compilant with JSON structure
+    # for Documentation Response
+    
 ---------------
 5. S2aApi Class
 ---------------
@@ -221,8 +235,8 @@ E X E P T I O N S
 
 TODO
 
-Each exception contains of error message and HTTP Response Code, except of S2aApiException, which
-contains only error message.
+Each exception contains of error message and HTTP Response Code, except of
+S2aApiException, which contains only error message.
 
 ------------------
 1. S2aApiException
@@ -232,33 +246,39 @@ Exception is raised if there is an error without HTTP part of functionality.
 ----------------------
 2. S2aApiHttpException
 ----------------------
-Exception is raised if there is an error with HTTP status code which is not supported by S2A API.
+Exception is raised if there is an error with HTTP status code which is 
+not supported by S2A API.
 
 ------------------
 3. ServerException
 ------------------
-Exception is raised if there is an error with HTTP status code equal to 500 - Internal Server Error
+Exception is raised if there is an error with HTTP status code
+equal to 500 - Internal Server Error
 
 -------------------
 4. RequestException
 -------------------
-Exception is raised if there is an error with HTTP status code equal to 400 - Bad Request or
+Exception is raised if there is an error with HTTP status code
+equal to 400 - Bad Request or
 405 -Method Not Allowed
 
 ------------------
 5. AccessException
 ------------------
-Exception is raised if there is an error with HTTP status code equal to 403 - Forbidden
+Exception is raised if there is an error with HTTP status code
+equal to 403 - Forbidden
 
 --------------------
 6. NotFoundException
 --------------------
-Exception is raised if there is an error with HTTP status code equal to 404 - Not Found
+Exception is raised if there is an error with HTTP status code
+equal to 404 - Not Found
 
 ------------------------
 7. ServiceLogicException
 ------------------------
-Exception is raised if there is an error with HTTP status code equal to 412 - Precondition Failed
+Exception is raised if there is an error with HTTP status code
+equal to 412 - Precondition Failed
 
 
 =============
@@ -273,4 +293,5 @@ TODO
 R E F E R E N C E S
 ===================
 
-1. S2A API Documentation: https://www.ship2anywhere.com.au/developers/api-functionality/
+1. S2A API Documentation:
+   https://www.ship2anywhere.com.au/developers/api-functionality/
