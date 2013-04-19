@@ -52,5 +52,6 @@ def __json_check(error_type, resp):
         if json_dict.has_key('message'):
             msg += ": " + json_dict.get('message')
     except ValueError:
-        LOG.exception("API returned corrupted message")
+        #LOG.exception("API returned corrupted message")
+        pass
     return msg
