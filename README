@@ -61,10 +61,9 @@ Service modules are located at s2a_api_client/
     
     # get quote
     request = {} # add python structure for Quote Service 
-    r = quote_service.get_quote(request) # method returns dictionary
-                                         # compilant with JSON structure
-                                         # for Quote Response
-                                         
+    # method returns dictionary compilant with JSON structure for Quote Response
+    r = quote_service.get_quote(request)
+
 ----------------
 2. Order Service
 ----------------
@@ -85,11 +84,9 @@ Service modules are located at s2a_api_client/
     
     # create order
     request = {} # add python structure for Create Order Service
-    token = "1234567890" # token from OAuth2.0 service
+    token = "60af2c6d5755aa9cd089cf100a272cc4f747f1e8" # token from OAuth2.0 service
+    # method returns dictionary compilant with JSON structure for Order Response
     r = order_service.create_order(request, token)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Order Response
     
     ~~~~~~~~~~~~~~~
     b. Accept order
@@ -97,7 +94,7 @@ Service modules are located at s2a_api_client/
     After creating an order the client can either accept or cancel it. When the order has been
     accepted (payment information provided), the booking process begins.
     
-    Example: 
+    Example:
     
     # import s2a api client
     from s2a_api_client import order
@@ -109,14 +106,12 @@ Service modules are located at s2a_api_client/
     # accept order
     request = {} # add python structure for Create Order Service
     order_id = "S2AO000001" # S2A Order ID
-    token = "1234567890" # token from OAuth2.0 service
+    token = "60af2c6d5755aa9cd089cf100a272cc4f747f1e8" # token from OAuth2.0 service
+    # method returns dictionary compilant with JSON structure for Order Response
     r = order_service.accept_order(request, order_id, token)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Order Response
-    
+
     ~~~~~~~~~~~~~~~
-    c. Accept order
+    c. Cancel order
     ~~~~~~~~~~~~~~~
     Cancel created order.
     
@@ -131,12 +126,10 @@ Service modules are located at s2a_api_client/
     
     # accept order
     order_id = "S2AO000001" # S2A Order ID
-    token = "1234567890" # token from OAuth2.0 service
+    token = "60af2c6d5755aa9cd089cf100a272cc4f747f1e8" # token from OAuth2.0 service
+    # method returns dictionary compilant with JSON structure for Order Response
     r = order_service.cancel_order(order_id, token)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Order Response
-    
+
     ~~~~~~~~~~~~~~
     d. Fetch order
     ~~~~~~~~~~~~~~
@@ -153,11 +146,9 @@ Service modules are located at s2a_api_client/
     
     # accept order
     order_id = "S2AO000001" # S2A Order ID
-    token = "1234567890" # token from OAuth2.0 service
+    token = "60af2c6d5755aa9cd089cf100a272cc4f747f1e8" # token from OAuth2.0 service
+    # method returns dictionary compilant with JSON structure for Order Response
     r = order_service.fetch_order(order_id, token)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Order Response
     
 --------------------
 3. Documents Service
@@ -176,12 +167,10 @@ Service modules are located at s2a_api_client/
     
     # accept order
     order_id = "S2AO000001" # S2A Order ID
-    token = "1234567890" # token from OAuth2.0 service
+    token = "60af2c6d5755aa9cd089cf100a272cc4f747f1e8" # token from OAuth2.0 service
+    # method returns dictionary compilant with JSON structure for Documents Response
     r = document_service.download_documents(order_id, token)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Documentation Response
-    
+
 -------------------
 4. Tracking Service
 -------------------
@@ -199,11 +188,9 @@ Service modules are located at s2a_api_client/
     
     # accept order
     tracking_number = "ABC123" # Tracking Number
+    # method returns dictionary compilant with JSON structure for Tracking Response
     r = track_service.track(args.tracking_number)
-    # method returns dictionary
-    # compilant with JSON structure
-    # for Documentation Response
-    
+
 ---------------
 5. S2aApi Class
 ---------------
@@ -235,19 +222,21 @@ E X E P T I O N S
 
 TODO
 
-Each exception contains of error message and HTTP Response Code, except of
-S2aApiException, which contains only error message.
+Each exception contains error message and HTTP Response Code, except of
+S2aApiException, which contains only error message and is base class for other exceptions.
 
 ------------------
 1. S2aApiException
 ------------------
 Exception is raised if there is an error without HTTP part of functionality.
+This is base exception class which is extended by S2aApiHttpException.
 
 ----------------------
 2. S2aApiHttpException
 ----------------------
 Exception is raised if there is an error with HTTP status code which is 
-not supported by S2A API.
+not supported by S2A API. This class introduces http response code to exception,
+it is extended by following exception classes.
 
 ------------------
 3. ServerException
@@ -285,7 +274,7 @@ equal to 412 - Precondition Failed
 S C R I P T S
 =============
 
-Testing script is provided at the 'scripts/' directory.
+Testing scripts are provided at the 'scripts/' directory.
 TODO
 
 
