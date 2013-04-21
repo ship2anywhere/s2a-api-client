@@ -188,10 +188,10 @@ Service modules are located at s2a_api_client/ directory
     api_url = "https://api.s2asandbox.com/v1.0/"
     track_service = track.TrackService(api_url)
     
-    # accept order
+    # track order
     tracking_number = "ABC123" # Tracking Number
     # method returns dictionary compilant with JSON structure for Tracking Response
-    r = track_service.track(args.tracking_number)
+    r = track_service.track(tracking_number)
 
 ---------------
 5. S2aApi Class
@@ -217,6 +217,27 @@ Service modules are located at s2a_api_client/ directory
     s2a_api.doc_service.download_documents(...)
     s2a_api.track_service.track(...)
 
+-------------------------
+6. Authentication Service
+-------------------------
+    The 'Authentitcaiotn Service' allows to generate token from a 'code'.
+    
+    Example:
+    
+    # import s2a api client
+    from s2a_api_client import auth
+
+    # create object
+    api_url = "https://api.s2asandbox.com/oauth2/"
+    client_id = "123456789"
+    client_secret = "abc123abc123"
+    auth_service = auth.AuthService(api_url, client_id, client_secret)
+        
+    # get token
+    code = "qwerty12345"
+    # method returns dictionary compilant with JSON structure for Auth Response
+    r = auth_service.get_token(code)
+
 
 =================
 E X E P T I O N S
@@ -229,46 +250,45 @@ exceptions.
 ------------------
 1. S2aApiException
 ------------------
-Exception is raised if there is an error without HTTP part of functionality.
-This is base exception class which is extended by S2aApiHttpException.
+    Exception is raised if there is an error without HTTP part of functionality.
+    This is base exception class which is extended by S2aApiHttpException.
 
 ----------------------
 2. S2aApiHttpException
 ----------------------
-Exception is raised if there is an error with HTTP status code which is 
-not supported by S2A API. This class introduces http response code to exception,
-it is extended by following exception classes.
+    Exception is raised if there is an error with HTTP status code which is 
+    not supported by S2A API. This class introduces http response code to exception,
+    it is extended by following exception classes.
 
 ------------------
 3. ServerException
 ------------------
-Exception is raised if there is an error with HTTP status code
-equal to 500 - Internal Server Error
+    Exception is raised if there is an error with HTTP status code
+    equal to 500 - Internal Server Error
 
 -------------------
 4. RequestException
 -------------------
-Exception is raised if there is an error with HTTP status code
-equal to 400 - Bad Request or
-405 -Method Not Allowed
+    Exception is raised if there is an error with HTTP status code
+    equal to 400 - Bad Request or 405 -Method Not Allowed
 
 ------------------
 5. AccessException
 ------------------
-Exception is raised if there is an error with HTTP status code
-equal to 403 - Forbidden
+    Exception is raised if there is an error with HTTP status code
+    equal to 403 - Forbidden
 
 --------------------
 6. NotFoundException
 --------------------
-Exception is raised if there is an error with HTTP status code
-equal to 404 - Not Found
+    Exception is raised if there is an error with HTTP status code
+    equal to 404 - Not Found
 
 ------------------------
 7. ServiceLogicException
 ------------------------
-Exception is raised if there is an error with HTTP status code
-equal to 412 - Precondition Failed
+    Exception is raised if there is an error with HTTP status code
+    equal to 412 - Precondition Failed
 
 
 =============
@@ -283,38 +303,38 @@ Sample JSON files are provided in 'samples/' directory.
 1. Get Quote Script
 -------------------
 
-Usage: s2a-quote-get.py [-h] --api_url API_URL --json_file JSON_FILE [--log LOG]
+    Usage: s2a-quote-get.py [-h] --api_url API_URL --json_file JSON_FILE [--log LOG]
 
-Example:
+    Example:
 
-s2a-quote.get.py --api_url https://api.s2asandbox.com/v1.0/ --json_file
-    samples/sample_quote_get.json
+    s2a-quote.get.py --api_url https://api.s2asandbox.com/v1.0/ --json_file
+        samples/sample_quote_get.json
 
 
 ----------------------
 2. Create Order Script
 ----------------------
 
-Usage: s2a-order-create.py [-h] --api_url API_URL --token TOKEN --json_file
-                           JSON_FILE [--log LOG]
+    Usage: s2a-order-create.py [-h] --api_url API_URL --token TOKEN --json_file
+                               JSON_FILE [--log LOG]
 
-Example:
+    Example:
 
-s2a-order-create.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-    --json_file samples/sample_order_create.json
+    s2a-order-create.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+        --json_file samples/sample_order_create.json
 
 
 ----------------------
 3. Accept Order Script
 ----------------------
 
-Usage: s2a-order-accept.py [-h] --api_url API_URL --order_id ORDER_ID --token
-                           TOKEN --json_file JSON_FILE [--log LOG]
+    Usage: s2a-order-accept.py [-h] --api_url API_URL --order_id ORDER_ID --token
+                               TOKEN --json_file JSON_FILE [--log LOG]
 
-Example:
+    Example:
 
-s2a-order-accept.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-    --order_id S2AO000001 --json_file samples/sample_order_accept.json
+    s2a-order-accept.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+        --order_id S2AO000001 --json_file samples/sample_order_accept.json
 
 
 ----------------------
@@ -322,51 +342,64 @@ s2a-order-accept.py --api_url https://api.s2asandbox.com/v1.0/ --token 123456789
 ----------------------
 
 
-Usage: s2a-order-cancel.py [-h] --api_url API_URL --token TOKEN --order_id
-                           ORDER_ID [--log LOG]
+    Usage: s2a-order-cancel.py [-h] --api_url API_URL --token TOKEN --order_id
+                               ORDER_ID [--log LOG]
 
-Example:
+    Example:
 
-s2a-order-cancel.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-    --order_id S2AO000001
+    s2a-order-cancel.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+        --order_id S2AO000001
    
 
 ----------------------
 5. Fetch Order Script
 ----------------------
 
-Usage: s2a-order-fetch.py [-h] --api_url API_URL --token TOKEN --order_id
-                          ORDER_ID [--log LOG]
+    Usage: s2a-order-fetch.py [-h] --api_url API_URL --token TOKEN --order_id
+                              ORDER_ID [--log LOG]
 
-Example:
+    Example:
 
-s2a-order-fetch.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-    --order_id S2AO000001
+    s2a-order-fetch.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+        --order_id S2AO000001
 
 
 ----------------------------
 6. Download Documents Script
 ----------------------------
 
-Usage: s2a-documents-get.py [-h] --api_url API_URL --token TOKEN --order_id
-                            ORDER_ID [--log LOG]
+    Usage: s2a-documents-get.py [-h] --api_url API_URL --token TOKEN --order_id
+                                ORDER_ID [--log LOG]
 
-Example:
+    Example:
 
-s2a-documents-get.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-    --order_id S2AO000001
+    s2a-documents-get.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+        --order_id S2AO000001
 
 
 ---------------
 7. Track Script
 ---------------
 
-Usage: s2a-track.py [-h] --api_url API_URL --tracking_number TRACKING_NUMBER
-                    [--log LOG]
+    Usage: s2a-track.py [-h] --api_url API_URL --tracking_number TRACKING_NUMBER
+                        [--log LOG]
 
-Example:
+    Example:
 
-s2a-track.py --api_url https://api.s2asandbox.com/v1.0/ --tracking_number ABC123
+    s2a-track.py --api_url https://api.s2asandbox.com/v1.0/ --tracking_number ABC123
+
+
+------------------------
+8. Authentication Script
+------------------------
+
+    Usage: s2a-track.py [-h] --api_url API_URL --tracking_number TRACKING_NUMBER
+                        [--log LOG]
+
+    Example:
+
+    s2a-auth-get-token.py --api_url https://api.s2asandbox.com/oauth2/
+        --client_id 123456789 --client_secret abc123abc123 --code qwerty12345
 
 
 ===================
