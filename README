@@ -1,6 +1,6 @@
                     ==================================
                     =                                =
-                    =  s2a_api_client Documentation  =
+                    =  S2A API CLIENT Documentation  =
                     =                                =
                     ==================================
 
@@ -11,13 +11,13 @@
 I N S T A L L A T I O N
 =======================
 
-There is several ways to download and install s2a_api_client.
-s2a_api_client resides on github.com at
+There is several ways to download and install the S2A API Client.
+The S2A API Client resides on github.com at
 https://github.com/ship2anywhere/s2a-api-client
 
---------
-1. Links
---------
+--------------------------
+1. Links to the repository
+--------------------------
 
 https://github.com/ship2anywhere/s2a-api-client.git
 git@github.com:ship2anywhere/s2a-api-client.git
@@ -42,7 +42,7 @@ python setup.py install
 S E R V I C E S
 ===============
 
-Service modules are located at s2a_api_client/
+Service modules are located at s2a_api_client/ directory
 
 ----------------
 1. Quote Service
@@ -94,8 +94,8 @@ Service modules are located at s2a_api_client/
     ~~~~~~~~~~~~~~~
     b. Accept order
     ~~~~~~~~~~~~~~~
-    After creating an order the client can either accept or cancel it. When the order has been
-    accepted (payment information provided), the booking process begins.
+    After creating an order the client can either accept or cancel it. When the order
+    has been accepted (payment information provided), the booking process begins.
     
     Example: 
     
@@ -140,7 +140,8 @@ Service modules are located at s2a_api_client/
     ~~~~~~~~~~~~~~
     d. Fetch order
     ~~~~~~~~~~~~~~
-    The 'Fetch order' service allows for monitoring booking with the polling technique
+    The 'Fetch order' service allows for monitoring booking with the polling
+    technique
     
     Example: 
     
@@ -163,7 +164,8 @@ Service modules are located at s2a_api_client/
 3. Documents Service
 --------------------
 
-    The 'Documentation" service allows downloading shipping documents which includes shipping labels
+    The 'Documentation" service allows downloading shipping documents which includes 
+    shipping labels
 
     Example: 
     
@@ -207,8 +209,8 @@ Service modules are located at s2a_api_client/
 ---------------
 5. S2aApi Class
 ---------------
-    If you want to access whole set of services, you could use S2aApi class, which includes all of
-    the services.
+    If you want to access whole set of services, you could use S2aApi class,
+    which includes all of the services.
     
     Example:
     
@@ -233,9 +235,8 @@ Service modules are located at s2a_api_client/
 E X E P T I O N S
 =================
 
-TODO
 
-Each exception contains of error message and HTTP Response Code, except of
+Each S2A API Client exception contains of error message and HTTP Response Code, except of
 S2aApiException, which contains only error message.
 
 ------------------
@@ -285,8 +286,98 @@ equal to 412 - Precondition Failed
 S C R I P T S
 =============
 
-Testing script is provided at the 'scripts/' directory.
-TODO
+Testing script is provided at the 'scripts/' directory. After installation, scripts
+are added to the PATH variable, so it can be executed from anywhere.
+Sample JSON files are provided in 'samples/' directory.
+
+-------------------
+1. Get Quote Script
+-------------------
+
+Usage: s2a-quote-get.py [-h] --api_url API_URL --json_file JSON_FILE [--log LOG]
+
+Example:
+
+s2a-quote.get.py --api_url https://api.s2asandbox.com/v1.0/ --json_file
+    samples/sample_quote_get.json
+
+
+----------------------
+2. Create Order Script
+----------------------
+
+Usage: s2a-order-create.py [-h] --api_url API_URL --token TOKEN --json_file
+                           JSON_FILE [--log LOG]
+
+Example:
+
+s2a-order-create.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+    --json_file samples/sample_order_create.json
+
+
+----------------------
+3. Accept Order Script
+----------------------
+
+Usage: s2a-order-accept.py [-h] --api_url API_URL --order_id ORDER_ID --token
+                           TOKEN --json_file JSON_FILE [--log LOG]
+
+Example:
+
+s2a-order-accept.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+    --order_id S2AO000001 --json_file samples/sample_order_accept.json
+
+
+----------------------
+4. Cancel Order Script
+----------------------
+
+
+Usage: s2a-order-cancel.py [-h] --api_url API_URL --token TOKEN --order_id
+                           ORDER_ID [--log LOG]
+
+Example:
+
+s2a-order-cancel.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+    --order_id S2AO000001
+   
+
+----------------------
+5. Fetch Order Script
+----------------------
+
+Usage: s2a-order-fetch.py [-h] --api_url API_URL --token TOKEN --order_id
+                          ORDER_ID [--log LOG]
+
+Example:
+
+s2a-order-fetch.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+    --order_id S2AO000001
+
+
+----------------------------
+6. Download Documents Script
+----------------------------
+
+Usage: s2a-documents-get.py [-h] --api_url API_URL --token TOKEN --order_id
+                            ORDER_ID [--log LOG]
+
+Example:
+
+s2a-documents-get.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
+    --order_id S2AO000001
+
+
+---------------
+7. Track Script
+---------------
+
+Usage: s2a-track.py [-h] --api_url API_URL --tracking_number TRACKING_NUMBER
+                    [--log LOG]
+
+Example:
+
+s2a-track.py --api_url https://api.s2asandbox.com/v1.0/ --tracking_number ABC123
 
 
 ===================
