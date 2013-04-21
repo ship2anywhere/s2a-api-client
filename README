@@ -373,8 +373,8 @@ Sample JSON files are provided in 'samples/' directory.
 
     Example:
 
-    s2a-documents-get.py --api_url https://api.s2asandbox.com/v1.0/ --token 1234567890
-        --order_id S2AO000001
+    s2a-documents-get.py --api_url https://api.s2asandbox.com/v1.0/
+        --token 1234567890--order_id S2AO000001
 
 
 ---------------
