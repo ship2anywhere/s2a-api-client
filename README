@@ -295,8 +295,8 @@ exceptions.
 S C R I P T S
 =============
 
-Testing script is provided at the 'scripts/' directory. After installation, scripts
-are added to the PATH variable, so it can be executed from anywhere.
+Testing scripts are provided at the 'scripts/' directory. After installation, scripts
+are added to the PATH variable, so they can be executed from anywhere.
 Sample JSON files are provided in 'samples/' directory.
 
 -------------------
@@ -393,8 +393,10 @@ Sample JSON files are provided in 'samples/' directory.
 8. Authentication Script
 ------------------------
 
-    Usage: s2a-track.py [-h] --api_url API_URL --tracking_number TRACKING_NUMBER
-                        [--log LOG]
+    Usage: s2a-auth-get-token.py [-h] --api_url API_URL --client_id CLIENT_ID
+                             --client_secret CLIENT_SECRET --code CODE
+                             [--log LOG]
+
 
     Example:
 
