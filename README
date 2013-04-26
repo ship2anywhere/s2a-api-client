@@ -155,7 +155,7 @@ Service modules are located at s2a_api_client/ directory
 3. Documents Service
 --------------------
 
-    The 'Documentation" service allows downloading shipping documents which includes 
+    The Documents service allows downloading shipping documents which includes 
     shipping labels
 
     Example: 
